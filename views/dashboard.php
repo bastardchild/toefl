@@ -8,28 +8,22 @@
 </head>
 <body>
     <div class="container mt-5">
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <h1>Welcome, <?= htmlspecialchars($_SESSION['name']) ?>!</h1>
-
-            <?php if ($_SESSION['role_id'] == 1): // Admin ?>
-                <div class="admin-content">
-                    <h2>Admin Dashboard</h2>
-                    <p>Here is some admin content.</p>
-                    <!-- Add more admin-specific content here -->
-                </div>
-            <?php elseif ($_SESSION['role_id'] == 2): // User ?>
-                <div class="user-content">
-                    <h2>User Dashboard</h2>
-                    <p>Here is some user content.</p>
-                    <!-- Add more user-specific content here -->
-                </div>
-            <?php endif; ?>
-
-            <a href="/logout" class="btn btn-danger">Logout</a>
+        <h1>Welcome, <?= htmlspecialchars($_SESSION['name']) ?>!</h1>       
+        
+        <?php if ($_SESSION['role_id'] === 1): ?>
+            <h2>Admin Dashboard</h2>
+            <!-- Admin-specific content -->
+            <p>Manage users, view reports, and configure settings here.</p>
         <?php else: ?>
-            <h1>Please log in to access the dashboard.</h1>
-            <a href="/" class="btn btn-primary">Login</a>
+            <h2>Student Dashboard</h2>
+            <!-- Student-specific content -->
+            <p>Ready to start the TOEFL exam? Click the button below to begin.</p>
+            <form action="/start-exam" method="post">
+                <button type="submit" class="btn btn-primary">Start TOEFL Exam</button>
+            </form>
         <?php endif; ?>
+
+        <a href="/logout" class="btn btn-danger mt-3">Logout</a>
     </div>
 </body>
 </html>

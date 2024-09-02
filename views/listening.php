@@ -9,6 +9,10 @@
 <body>
     <div class="container mt-5">
         <h1>Listening Section</h1>
+
+        <!-- Audio element that plays automatically -->
+        <audio id="listeningAudio" src="https://www.soundjay.com/buttons/button-1.wav" autoplay></audio>
+
         <form action="/listening" method="post">
             <!-- Example Question -->
             <div class="form-group">
@@ -34,5 +38,12 @@
         </form>
         <a href="/logout" class="btn btn-danger">Logout</a>
     </div>
+
+    <script>
+        // Redirect to the next section after the audio ends
+        document.getElementById('listeningAudio').addEventListener('ended', function() {
+            window.location.href = '/writing';
+        });
+    </script>
 </body>
 </html>

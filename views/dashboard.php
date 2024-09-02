@@ -1,3 +1,4 @@
+<?php $isCompleted = isset($exam) && $exam->status_id == 2; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +18,16 @@
     </style>
 </head>
 <body>
-    <div class="container mt-5">  
+    <div class="container mt-5"> 
         <div class="row">
             <div class="col-sm">
                 <h1>Welcome, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h1>
+                <?php if (isset($_SESSION['error_message'])): ?>
+                    <div class="alert alert-danger">
+                        <?php echo htmlspecialchars($_SESSION['error_message']); ?>
+                    </div>
+                    <?php unset($_SESSION['error_message']); ?>
+                <?php endif; ?>
             </div>
             <div class="col-sm">
                 <a href="/logout" class="btn btn-danger float-right">Logout</a>
@@ -36,7 +43,7 @@
             <h2>Student Dashboard</h2>
             <!-- Student-specific content -->
 
-            <div class="pre-test-hardware">
+            <div class="pre-test-hardware" <?php echo $isCompleted ? 'style="display:none;"' : ''; ?>>
                 <h3 class="mt-5">Exam Preliminaries: Webcam and Speaker Test</h3>
         
                 <!-- Webcam Test Section -->
@@ -63,7 +70,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button id="submitpretest" class="btn btn-primary mt-5" disabled>Submit</button>
+                <button id="submitpretest" class="btn btn-success mt-5" disabled>Selanjutnya</button>
             </div>
 
             <div class="ready-test">

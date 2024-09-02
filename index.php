@@ -64,8 +64,29 @@ $app->get('/dashboard', function ($request, $response, $args) {
             ->withStatus(302);
     }
 
+    // Check if the user has status_id = 2
+    $exam = \App\Models\Exam::where('user_id', $_SESSION['user_id'])->where('status_id', 2)->first();
+    $isCompleted = $exam ? true : false;
+
+    // Pass the $isCompleted variable to the view
     ob_start();
     require __DIR__ . '/views/dashboard.php';
+    $output = ob_get_clean();
+    
+    $response->getBody()->write($output);
+    return $response;
+});
+
+//complete route
+$app->get('/complete', function ($request, $response, $args) {
+    if (!isset($_SESSION['user_id'])) {
+        return $response
+            ->withHeader('Location', '/')
+            ->withStatus(302);
+    }
+
+    ob_start();
+    require __DIR__ . '/views/complete.php';
     $output = ob_get_clean();
     
     $response->getBody()->write($output);

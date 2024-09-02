@@ -3,6 +3,7 @@
 
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
+use App\Models\Exam; // Adjust the namespace according to your folder structure
 
 // Start Exam route
 $app->post('/start-exam', function (Request $request, Response $response, array $args) {
@@ -12,7 +13,26 @@ $app->post('/start-exam', function (Request $request, Response $response, array 
             ->withStatus(302);
     }
 
-    $_SESSION['current_section'] = 'listening'; // Set the section to Listening
+    $userId = $_SESSION['user_id'];
+
+    // Check if an exam record already exists for the user
+    $existingExam = Exam::where('user_id', $userId)->first();
+
+    if ($existingExam) {
+        // If an existing exam is found, redirect to a page showing an error message
+        $_SESSION['error_message'] = 'You have already started an exam.';
+        return $response
+            ->withHeader('Location', '/dashboard')
+            ->withStatus(302);
+    }
+
+    // Create a new exam record with status 'In Progress'
+    $exam = new Exam();
+    $exam->user_id = $userId;
+    $exam->status_id = 1; // In Progress
+    $exam->save();
+
+    $_SESSION['current_section'] = 'listening';
 
     return $response
         ->withHeader('Location', '/listening')
@@ -107,8 +127,25 @@ $app->post('/reading', function (Request $request, Response $response, array $ar
             ->withStatus(302);
     }
 
-    // Process Reading section data
+    // Get the user ID from the session
+    $userId = $_SESSION['user_id'];
+
+    // Find the exam record for the current user
+    $exam = Exam::where('user_id', $userId)
+                ->where('status_id', 1) // Ensure the exam is in Progress
+                ->first();
+
+    if ($exam) {
+        // Update the exam status to Completed
+        $exam->status_id = 2; // Completed
+        $exam->save();
+    }
+
+    // Clear the current_section from the session
+    unset($_SESSION['current_section']);
+
+    // Redirect to a completion page
     return $response
-        ->withHeader('Location', '/dashboard')
+        ->withHeader('Location', '/complete')
         ->withStatus(302);
 });

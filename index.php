@@ -73,7 +73,14 @@ $app->get('/dashboard', function ($request, $response, $args) {
     $exam = \App\Models\Exam::where('user_id', $_SESSION['user_id'])->where('status_id', 2)->first();
     $isCompleted = $exam ? true : false;
 
-    // Pass the $isCompleted variable to the view
+    // If status_id = 2, redirect to complete route
+    if ($exam) {
+        return $response
+            ->withHeader('Location', '/complete')
+            ->withStatus(302);
+    }
+
+    // Otherwise, render the dashboard view
     ob_start();
     require __DIR__ . '/views/dashboard.php';
     $output = ob_get_clean();
@@ -90,11 +97,20 @@ $app->get('/complete', function ($request, $response, $args) {
             ->withStatus(302);
     }
 
-    // Retrieve user's exam results
-    $userId = $_SESSION['user_id'];
-    $examResults = ExamResult::where('user_id', $userId)->first();
+    // Retrieve the user's exam results
+    $examResult = \App\Models\ExamResult::where('user_id', $_SESSION['user_id'])->first();
 
-    // Define the score mappings for each section
+    if ($examResult) {
+        $listening_score = $examResult->listening_score;
+        $writing_score = $examResult->writing_score;
+        $reading_score = $examResult->reading_score;
+    } else {
+        $listening_score = 0;
+        $writing_score = 0;
+        $reading_score = 0;
+    }
+
+    // Score mappings for each section
     $section1_scores = [
         50 => 68, 49 => 67, 48 => 66, 47 => 65, 46 => 63, 45 => 62, 44 => 61, 43 => 60, 42 => 59,
         41 => 58, 40 => 57, 39 => 56, 38 => 55, 37 => 54, 36 => 54, 35 => 53, 34 => 52, 33 => 52,
@@ -121,46 +137,28 @@ $app->get('/complete', function ($request, $response, $args) {
         5  => 25, 4  => 24, 3  => 23, 2  => 22, 1  => 21, 0  => 21
     ];
 
-    // Function to calculate total TOEFL score
-    function calculate_toefl_score($correct_section1, $correct_section2, $correct_section3) {
-        global $section1_scores, $section2_scores, $section3_scores;
-        
-        // Get converted scores based on the number correct
-        $converted_score1 = isset($section1_scores[$correct_section1]) ? $section1_scores[$correct_section1] : 0;
-        $converted_score2 = isset($section2_scores[$correct_section2]) ? $section2_scores[$correct_section2] : 0;
-        $converted_score3 = isset($section3_scores[$correct_section3]) ? $section3_scores[$correct_section3] : 0;
+    // Convert raw scores to mapped scores
+    $mapped_listening_score = isset($section1_scores[$listening_score]) ? $section1_scores[$listening_score] : 0;
+    $mapped_writing_score = isset($section2_scores[$writing_score]) ? $section2_scores[$writing_score] : 0;
+    $mapped_reading_score = isset($section3_scores[$reading_score]) ? $section3_scores[$reading_score] : 0;
 
-        // Sum the converted scores
-        $total_converted_score = $converted_score1 + $converted_score2 + $converted_score3;
+    // Sum the converted scores
+    $total_converted_score = $mapped_listening_score + $mapped_writing_score + $mapped_reading_score;
 
-        // Calculate the average of the converted scores
-        $average_converted_score = $total_converted_score / 3;
+    // Calculate the average of the converted scores
+    $average_converted_score = $total_converted_score / 3;
 
-        // Final TOEFL score
-        $toefl_score = $average_converted_score * 10;
+    // Final TOEFL score (rounded to the nearest integer)
+    $toefl_score = round($average_converted_score * 10);
 
-        return $toefl_score;
-    }
-
-    // Calculate TOEFL total score
-    $toeflScore = 0;
-    if ($examResults) {
-        $correctSection1 = $examResults->listening_score ?? 0;
-        $correctSection2 = $examResults->writing_score ?? 0;
-        $correctSection3 = $examResults->reading_score ?? 0;
-        
-        $toeflScore = calculate_toefl_score($correctSection1, $correctSection2, $correctSection3);
-    }
-
-    // Include the completion view
+    // Pass the mapped scores and final TOEFL score to the complete.php view
     ob_start();
     require __DIR__ . '/views/complete.php';
     $output = ob_get_clean();
-
+    
     $response->getBody()->write($output);
     return $response;
 });
-
 
 // Logout route
 $app->get('/logout', function ($request, $response, $args) {

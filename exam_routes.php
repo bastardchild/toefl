@@ -4,6 +4,7 @@
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use App\Models\Exam; // Adjust the namespace according to your folder structure
+use App\Models\ExamResult;
 
 // Start Exam route
 $app->post('/start-exam', function (Request $request, Response $response, array $args) {
@@ -14,7 +15,7 @@ $app->post('/start-exam', function (Request $request, Response $response, array 
     }
 
     $userId = $_SESSION['user_id'];
-
+    
     // Check if an exam record already exists for the user
     $existingExam = Exam::where('user_id', $userId)->first();
 
@@ -32,6 +33,7 @@ $app->post('/start-exam', function (Request $request, Response $response, array 
     $exam->status_id = 1; // In Progress
     $exam->save();
 
+    $_SESSION['exam_id'] = $exam->id; // Set exam_id in session
     $_SESSION['current_section'] = 'listening';
 
     return $response
@@ -63,8 +65,53 @@ $app->post('/listening', function (Request $request, Response $response, array $
             ->withStatus(302);
     }
 
-    // Process Listening section data
-    $_SESSION['current_section'] = 'writing'; // Move to Writing section
+    $examId = $_SESSION['exam_id']; // This should now be set
+
+    if (!$examId) {
+        // Handle the case where exam_id is not set
+        return $response
+            ->withHeader('Location', '/dashboard')
+            ->withStatus(302);
+    }
+
+    // Define the correct answers
+    $correctAnswers = [
+        'question1' => 'A',        
+    ];
+
+    // Retrieve user's submitted answers from POST request
+    $userAnswers = $request->getParsedBody();
+
+    // Calculate the total correct answers
+    $totalCorrect = 0;
+    foreach ($correctAnswers as $question => $correctAnswer) {
+        if (isset($userAnswers[$question]) && $userAnswers[$question] === $correctAnswer) {
+            $totalCorrect++;
+        }
+    }
+
+    // Save the total correct answers to the exam_results table
+    $userId = $_SESSION['user_id'];
+
+    // Insert or update the exam result in the exam_results table
+    $db = new ExamResult();
+    $examResult = $db->where('user_id', $userId)->where('exam_id', $examId)->first();
+
+    if ($examResult) {
+        // Update existing result
+        $examResult->listening_score = $totalCorrect;
+        $examResult->save();
+    } else {
+        // Create new result
+        $db->create([
+            'user_id' => $userId,
+            'exam_id' => $examId,
+            'listening_score' => $totalCorrect,
+        ]);
+    }
+
+    // Move to Writing section
+    $_SESSION['current_section'] = 'writing';
 
     return $response
         ->withHeader('Location', '/writing')
@@ -95,8 +142,54 @@ $app->post('/writing', function (Request $request, Response $response, array $ar
             ->withStatus(302);
     }
 
-    // Process Writing section data
-    $_SESSION['current_section'] = 'reading'; // Move to Reading section
+    $examId = $_SESSION['exam_id'];
+
+    if (!$examId) {
+        // Handle the case where exam_id is not set
+        return $response
+            ->withHeader('Location', '/dashboard')
+            ->withStatus(302);
+    }
+
+    // Define the correct answers for the Writing section
+    $correctAnswers = [
+        'question1' => 'B',
+        // Add more questions and answers as needed
+    ];
+
+    // Retrieve user's submitted answers from POST request
+    $userAnswers = $request->getParsedBody();
+
+    // Calculate the total correct answers
+    $totalCorrect = 0;
+    foreach ($correctAnswers as $question => $correctAnswer) {
+        if (isset($userAnswers[$question]) && $userAnswers[$question] === $correctAnswer) {
+            $totalCorrect++;
+        }
+    }
+
+    // Save the total correct answers to the exam_results table
+    $userId = $_SESSION['user_id'];
+
+    // Insert or update the exam result in the exam_results table
+    $db = new ExamResult();
+    $examResult = $db->where('user_id', $userId)->where('exam_id', $examId)->first();
+
+    if ($examResult) {
+        // Update existing result
+        $examResult->writing_score = $totalCorrect;
+        $examResult->save();
+    } else {
+        // Create new result
+        $db->create([
+            'user_id' => $userId,
+            'exam_id' => $examId,
+            'writing_score' => $totalCorrect,
+        ]);
+    }
+
+    // Move to Reading section
+    $_SESSION['current_section'] = 'reading';
 
     return $response
         ->withHeader('Location', '/reading')
@@ -127,10 +220,53 @@ $app->post('/reading', function (Request $request, Response $response, array $ar
             ->withStatus(302);
     }
 
-    // Get the user ID from the session
+    $examId = $_SESSION['exam_id'];
+
+    if (!$examId) {
+        // Handle the case where exam_id is not set
+        return $response
+            ->withHeader('Location', '/dashboard')
+            ->withStatus(302);
+    }
+
+    // Define the correct answers for the Reading section
+    $correctAnswers = [
+        'question1' => 'C',
+        // Add more questions and answers as needed
+    ];
+
+    // Retrieve user's submitted answers from POST request
+    $userAnswers = $request->getParsedBody();
+
+    // Calculate the total correct answers
+    $totalCorrect = 0;
+    foreach ($correctAnswers as $question => $correctAnswer) {
+        if (isset($userAnswers[$question]) && $userAnswers[$question] === $correctAnswer) {
+            $totalCorrect++;
+        }
+    }
+
+    // Save the total correct answers to the exam_results table
     $userId = $_SESSION['user_id'];
 
-    // Find the exam record for the current user
+    // Insert or update the exam result in the exam_results table
+    $db = new ExamResult();
+    $examResult = $db->where('user_id', $userId)->where('exam_id', $examId)->first();
+
+    if ($examResult) {
+        // Update existing result
+        $examResult->reading_score = $totalCorrect;
+        $examResult->save();
+    } else {
+        // Create new result
+        $db->create([
+            'user_id' => $userId,
+            'exam_id' => $examId,
+            'reading_score' => $totalCorrect,
+        ]);
+    }   
+
+    // Mark the exam as completed
     $exam = Exam::where('user_id', $userId)
                 ->where('status_id', 1) // Ensure the exam is in Progress
                 ->first();

@@ -15,7 +15,11 @@ $app = AppFactory::create(); // Create Slim app
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 // Include exam routes after app is created
-require 'exam_routes.php';
+// require 'exam_routes.php';
+require 'app/Routes/StartExamRoute.php';
+require 'app/Routes/ListeningRoute.php';
+require 'app/Routes/WritingRoute.php';
+require 'app/Routes/ReadingRoute.php';
 
 // Render login view as the homepage
 $app->get('/', function ($request, $response, $args) {

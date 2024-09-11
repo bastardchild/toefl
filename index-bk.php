@@ -18,27 +18,6 @@ $app = AppFactory::create(); // Create Slim app
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-// Middleware to restrict access to Firefox on PC/Laptop only
-$app->add(function ($request, $handler) {
-    $userAgent = $request->getHeaderLine('User-Agent');
-
-    // Check if the browser is Firefox
-    $isFirefox = strpos($userAgent, 'Firefox') !== false;
-
-    // Detect mobile devices based on common User-Agent substrings
-    $isMobile = preg_match('/Mobile|Android|iPhone|iPad|iPod|Windows Phone/i', $userAgent);
-
-    // Block if the browser is not Firefox or if it's a mobile device
-    if (!$isFirefox || $isMobile) {
-        $response = new \Slim\Psr7\Response();
-        $response->getBody()->write('Access restricted: Only Firefox on PC/Laptop is allowed');
-        return $response->withStatus(403); // Forbidden
-    }
-
-    // Proceed to the next middleware or route
-    return $handler->handle($request);
-});
-
 // Include routes after app is created
 require 'app/Routes/DashboardRoute.php';
 require 'app/Routes/StartExamRoute.php';
@@ -47,6 +26,7 @@ require 'app/Routes/WritingRoute.php';
 require 'app/Routes/ReadingRoute.php';
 require 'app/Routes/CompleteRoute.php';
 require 'app/Routes/UploadCsvRoute.php';
+
 
 // Render login view as the homepage
 $app->get('/', function ($request, $response, $args) {
@@ -100,7 +80,6 @@ $app->get('/logout', function ($request, $response, $args) {
         ->withStatus(302);
 });
 
-// Route to handle image upload
 $app->post('/upload-image', function ($request, $response, $args) {
     // Get parsed body and files
     $data = $request->getParsedBody();

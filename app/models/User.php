@@ -8,7 +8,6 @@ class User extends Model
     protected $table = 'users';
     public $timestamps = false;
 
-    protected $fillable = [
-        'name', 'role_id', 'username', 'password', 'exam_token', 'exam_status'
-    ];
+    // Allow these fields to be mass assignable
+    protected $fillable = ['name', 'middle_name', 'last_name', 'role_id', 'username', 'password', 'cam_image'];
 }

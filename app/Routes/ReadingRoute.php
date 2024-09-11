@@ -12,7 +12,7 @@ $app->get('/reading', function (Request $request, Response $response, array $arg
     }
 
     ob_start();
-    require __DIR__ . '/../views/reading.php';
+    require __DIR__ . '/../../views/reading.php';
     $output = ob_get_clean();
     
     $response->getBody()->write($output);

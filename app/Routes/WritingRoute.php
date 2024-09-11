@@ -11,7 +11,7 @@ $app->get('/writing', function (Request $request, Response $response, array $arg
     }
 
     ob_start();
-    require __DIR__ . '/../views/writing.php';
+    require __DIR__ . '/../../views/writing.php';
     $output = ob_get_clean();
     
     $response->getBody()->write($output);

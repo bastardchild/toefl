@@ -11,7 +11,7 @@ $app->get('/listening', function (Request $request, Response $response, array $a
     }
 
     ob_start();
-    require __DIR__ . '/../views/listening.php';
+    require __DIR__ . '/../../views/listening.php';
     $output = ob_get_clean();
     
     $response->getBody()->write($output);

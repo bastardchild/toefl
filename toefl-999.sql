@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 05, 2024 at 11:58 PM
+-- Generation Time: Sep 12, 2024 at 11:43 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -53,8 +53,7 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `user_id`, `exam_token`, `status_id`) VALUES
-(9, 1, NULL, 2),
-(10, 2, NULL, 2);
+(39, 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -79,8 +78,7 @@ CREATE TABLE `exam_results` (
 --
 
 INSERT INTO `exam_results` (`id`, `user_id`, `exam_id`, `listening_score`, `writing_score`, `reading_score`, `created_at`, `updated_at`, `toefl_score`) VALUES
-(4, 1, 9, 50, 40, 50, '2024-09-05 00:22:38', '2024-09-05 08:40:55', NULL),
-(5, 2, 10, 0, 0, 0, '2024-09-05 01:56:15', '2024-09-05 08:56:48', NULL);
+(30, 2, 39, 0, 0, 0, '2024-09-12 02:48:29', '2024-09-12 02:48:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,18 +157,26 @@ INSERT INTO `roles` (`id`, `role_name`) VALUES
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `name` varchar(100) NOT NULL,
+  `middle_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
   `role_id` int NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `cam_image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `exam_code` varchar(255) DEFAULT NULL,
+  `reset_required` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `role_id`, `username`, `password`) VALUES
-(1, 'John Doe', 2, 'user', 'password'),
-(2, 'Jane Smith', 2, 'user2', 'password');
+INSERT INTO `users` (`id`, `name`, `middle_name`, `last_name`, `role_id`, `username`, `password`, `cam_image`, `created_at`, `exam_code`, `reset_required`) VALUES
+(1, 'John Doe', '', '', 1, 'user', 'password', '66e049a600f22.png', '2024-09-11 08:42:20', NULL, 0),
+(2, 'Jane Smith', '', '', 2, 'user2', 'password', '66e2b8db2ed7b.png', '2024-09-11 08:42:20', NULL, 0),
+(13, 'name', 'middle_name', 'last_name', 2, 'name1362', 'name1362', NULL, '2024-09-12 10:07:05', NULL, 0),
+(14, 'name21', 'alan', '', 2, 'name211460', 'name211460', NULL, '2024-09-12 10:07:05', NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -249,13 +255,13 @@ ALTER TABLE `answers`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `exam_results`
 --
 ALTER TABLE `exam_results`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `exam_statuses`
@@ -285,7 +291,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

@@ -9,6 +9,7 @@ require 'config/database.php';
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
 use App\Models\User;
+use App\Models\Exam;
 use App\Models\ExamResult;
 
 session_start();
@@ -47,6 +48,7 @@ require 'app/Routes/WritingRoute.php';
 require 'app/Routes/ReadingRoute.php';
 require 'app/Routes/CompleteRoute.php';
 require 'app/Routes/UploadCsvRoute.php';
+require 'app/Routes/DownloadCsvRoute.php';
 
 // Render login view as the homepage
 $app->get('/', function ($request, $response, $args) {
@@ -166,6 +168,34 @@ $app->post('/upload-image', function ($request, $response, $args) {
 
     $response->getBody()->write('Image uploaded successfully');
     return $response->withStatus(200);
+});
+
+// reset exam
+$app->get('/reset-exam/{id}', function ($request, $response, $args) {
+    $userId = $args['id'];
+
+    // Fetch the exam and exam results based on user_id
+    $exam = Exam::where('user_id', $userId)->first();
+    $examResults = ExamResult::where('user_id', $userId)->get();
+
+    if ($exam) {
+        // Delete all exam results for the user
+        foreach ($examResults as $result) {
+            $result->delete();
+        }
+
+        // Delete the exam record for the user
+        $exam->delete();
+
+        // Set a success message
+        $_SESSION['message_notification'] = "Exam for user ID {$userId} have been reset.";
+    } else {
+        // Set an error message if no exam found
+        $_SESSION['message_notification'] = "No exam found for user ID {$userId}.";
+    }
+
+    // Redirect back to the dashboard with a success or error message
+    return $response->withHeader('Location', '/dashboard')->withStatus(302);
 });
 
 $app->run();

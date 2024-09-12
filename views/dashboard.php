@@ -31,25 +31,28 @@
 
         <?php else: ?>   
             <div class="col-md-8">  
-            <h3 class="mb-5">Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
+            <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
+            <p class="pretest-txt">Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
 
             <div class="pre-test-hardware" <?php echo $isCompleted ? 'style="display:none;"' : ''; ?>>
                 <h2 class="mt-5">Persiapan Ujian: Tes Webcam dan Speaker</h2>
-                <hr>
+               
                 <!-- Webcam Test Section -->
                 <div class="mt-3">
-                    <h4>Tes Webcam</h4>
+                    <h4><span class="number-b">1</span> Tes Kamera Webcam <i class="bi bi-webcam"></i></h4>
+                    <p>Kami akan melakukan tes singkat untuk memastikan kamera webcam Anda berfungsi dengan baik. Selama ujian, webcam Anda akan digunakan untuk tujuan keamanan dan pemantauan. Silakan izinkan akses ke webcam Anda.</p>
                     <video id="webcam" autoplay></video>
                     <div>
                         <input type="checkbox" id="webcamCheck" required>
                         <label for="webcamCheck">Saya dapat melihat tampilan webcam dengan jelas.</label>
                     </div>
                 </div>                
-                <hr>
+                
 
                 <!-- Speaker Test Section -->
-                <div class="mt-3">
-                    <h4>Speaker Test</h4>
+                <div class="mt-5">
+                    <h4><span class="number-b">2</span> Tes Speaker <i class="bi bi-volume-up-fill"></i></h4>
+                    <p>Untuk memastikan Anda dapat mendengar bagian audio dari ujian, kami akan menjalankan tes speaker. Pastikan speaker atau headphone Anda terhubung dan berfungsi dengan baik.</p>
                     <audio id="audioTest" controls>
                         <source src="/assets/audio/audio-test.mp3" type="audio/mp3">
                         Your browser does not support the audio element.
@@ -59,13 +62,14 @@
                         <label for="speakerCheck">Saya dapat mendengar audio dengan jelas.</label>
                     </div>
                 </div>
-                <hr>
-                <button id="submitpretest" class="btn btn-success mt-5" disabled>Next Step</button>
+                <hr class="mt-5">
+                <button id="submitpretest" class="btn btn-success mt-3" disabled>Next Step <i class="bi bi-arrow-up-right-square"></i></button>
             </div>
 
             <!-- Webcam Capture Section -->
-            <div class="webcam-capture" style="display:none;">
-                <h4>Webcam Capture</h4>
+            <div class="webcam-capture mt-5" style="display:none;">
+                <h4><span class="number-b">3</span> Pengambilan Screenshot Webcam <i class="bi bi-webcam"></i></h4>
+                <p>Untuk keperluan verifikasi identitas, kami akan mengambil screenshot dari webcam Anda. Silakan posisikan diri Anda di depan kamera dan pastikan pencahayaan memadai.</p>
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Webcam video and capture controls -->
@@ -90,7 +94,8 @@
                     <input type="file" id="fileInput" name="image" accept="image/png">
                     <button type="submit" id="uploadButton">Upload Image</button>
                 </form>
-                <button id="submitWebcamCapture" class="btn btn-success mt-5" disabled>Next Step</button>
+                <hr class="mt-5">
+                <button id="submitWebcamCapture" class="btn btn-success mt-3" disabled>Next Step <i class="bi bi-arrow-up-right-square"></i></button>
 
             </div>
 

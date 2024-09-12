@@ -7,11 +7,28 @@
     </div>
 <?php endif; ?>
 <hr>
+<h3 class="mt-3">Tambah Peserta</h3>
 <b>Upload CSV File</b><br>
 <form action="/upload-csv" method="post" enctype="multipart/form-data">
     <label for="csv">Select CSV file:</label>
     <input type="file" id="csv" name="csv" accept=".csv" required>
     <button type="submit" class="btn btn-success">Upload</button>
+</form>
+
+<hr>
+<h3 class="mt-3">Download Peserta</h3>
+<b>Download CSV File</b><br>
+<form action="/download-csv" method="post">
+    <label for="exam_code">Select Exam Code:</label>
+    <select id="exam_code" name="exam_code" style="margin-right:35px;" required>
+        <option value="">-- Select Exam Code --</option>
+        <?php foreach ($examCodes as $examCode): ?>
+            <option value="<?= htmlspecialchars($examCode->exam_code) ?>">
+                <?= htmlspecialchars($examCode->exam_code) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <button type="submit" class="btn btn-success">Download</button>
 </form>
 
 <!-- DataTable HTML -->
@@ -59,7 +76,7 @@
                 </td>
                 <td><?= htmlspecialchars($user->exam_code ?? 'N/A') ?></td>
                 <td>
-                    <a href="/reset-password/<?= htmlspecialchars($user->id) ?>" class="btn btn-warning">Reset</a>
+                    <a href="/reset-exam/<?= htmlspecialchars($user->id) ?>" class="btn btn-dark">Reset</a>
                 </td>
             </tr>
         <?php endforeach; ?>

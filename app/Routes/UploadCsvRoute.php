@@ -43,16 +43,16 @@ $app->post('/upload-csv', function (Request $request, Response $response, $args)
             fclose($handle);
             
             // Set success message in session
-            $_SESSION['csv_message'] = "CSV file uploaded and processed successfully.";
+            $_SESSION['message_notification'] = "CSV file uploaded and processed successfully.";
             return $response->withHeader('Location', '/dashboard')->withStatus(302);
         } else {
             // Set error message in session
-            $_SESSION['csv_message'] = "Error processing CSV file.";
+            $_SESSION['message_notification'] = "Error processing CSV file.";
             return $response->withHeader('Location', '/dashboard')->withStatus(302);
         }
     } else {
         // Set error message in session
-        $_SESSION['csv_message'] = "Error uploading file.";
+        $_SESSION['message_notification'] = "Error uploading file.";
         return $response->withHeader('Location', '/dashboard')->withStatus(302);
     }
 });

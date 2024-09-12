@@ -14,14 +14,29 @@
             <div class="col-sm"><a href="/logout" class="btn btn-danger float-end mt-25px">Logout</a></div>
         </div>        
     </div>
+
     <div class="container mt-3 main-content">
+        <h1>Selamat, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h1>
+        <p>Anda Telah menyelesaikan tes, Nilai TOEFL Anda adalah:</p>
+
         <div class="row">
-            <div class="col-sm">
-                <h1>Selamat, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h1>
-                Anda Telah menyelesaikan tes, Nilai TOEFL Anda adalah: <br>
-                <h1><?php echo htmlspecialchars($toefl_score); ?></h1>
+            <div class="col-sm">            
+                <div class="ttl-score">
+                    Total Score<br>
+                    <span><?php echo htmlspecialchars($toefl_score); ?></span>
+                </div>  
             </div>
-            <div class="col-sm">                
+
+            <div class="col-sm">            
+                 
+            </div>
+
+            <div class="col-sm">            
+                
+            </div>
+
+            <div class="col-sm">            
+                  
             </div>
         </div>
     </div>

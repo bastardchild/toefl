@@ -23,14 +23,17 @@ $app->get('/dashboard', function ($request, $response, $args) {
             ->withHeader('Location', '/complete')
             ->withStatus(302);
     }
+    
+    // Fetch distinct exam codes from users table
+    $examCodes = User::select('exam_code')->distinct()->whereNotNull('exam_code')->get();
 
     // Fetch user data for the DataTable     
     $users = \App\Models\User::leftJoin('exams', 'users.id', '=', 'exams.user_id')
     ->select('users.*', 'exams.status_id as exam_status_id')
     ->get();
 
-    $message = $_SESSION['csv_message'] ?? null;
-    unset($_SESSION['csv_message']);  // Clear the message after displaying
+    $message = $_SESSION['message_notification'] ?? null;
+    unset($_SESSION['message_notification']);  // Clear the message after displaying
 
     // Otherwise, render the dashboard view
     ob_start();

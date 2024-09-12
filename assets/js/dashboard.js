@@ -81,6 +81,7 @@ window.onload = () => {
                 alert('Image uploaded successfully!');
                 document.querySelector('.webcam-capture').style.display = 'none';
                 document.querySelector('.ready-test').style.display = 'block';
+                document.querySelector('.pretest-txt').style.display = 'none';
             } else {
                 alert('An error occurred while uploading the image.');
             }

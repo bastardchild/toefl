@@ -41,7 +41,7 @@ video, .cam-exam {
 .cam-exam{
     position: fixed;
     right: 0;
-    top: 20px;
+    top: 32px;
     width: 200px;
     height: 200px;
 }
@@ -49,7 +49,7 @@ video, .cam-exam {
     background: var(--orange);
     color: var(--navy);
     padding: 10px;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
     position: fixed;
     top: 0;
@@ -103,4 +103,10 @@ hr {
     display: inline-block;
     font-size: 55px;
     font-weight: bold;
+}
+.section-exam{
+    background: #ebebeb;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1000px;
 }

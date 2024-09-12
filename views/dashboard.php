@@ -31,6 +31,52 @@
 
         <?php else: ?>   
             <div class="col-md-8">  
+            <?php if (isset($_SESSION['user_id'])): ?>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            fetch('/get-reset-flag')
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.reset_required) {
+                                        // Show the clear local storage button
+                                        document.getElementById('alert-ulang').style.display = 'block';
+                                        document.getElementById('clear-local-storage').style.display = 'block';
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    </script>
+                    <div class="alert alert-danger" id="alert-ulang" style="display:none;">
+                        <p><strong>Silahkan Reset Sebelum Mengulang Ujian.</strong></p>
+                        <button id="clear-local-storage" class="btn btn-primary" style="display:none;" onclick="clearLocalStorage()">Reset Ujian</button>
+                    </div>
+
+                    <script>
+                        function clearLocalStorage() {
+                            // Clear the local storage
+                            localStorage.clear();
+                            alert('Local storage cleared.');
+
+                            // Optionally, notify the server that local storage was cleared
+                            fetch('/clear-reset-flag', { method: 'POST' })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Reset flag cleared:', data);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+
+                            // Hide the button after clearing
+                            document.getElementById('clear-local-storage').style.display = 'none';
+                            document.getElementById('alert-ulang').style.display = 'none';
+
+                        }
+                    </script>
+            <?php endif; ?>
+
             <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
             <p class="pretest-txt">Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
 
@@ -109,6 +155,9 @@
                     <button type="submit" class="btn btn-primary mt-3" id="startTest" disabled>Start TOEFL Exam</button>
                 </form>
             </div>
+          
+               
+
             <script src="/assets/js/dashboard.js"></script>
         <?php endif; ?>
         </div>       

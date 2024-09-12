@@ -39,19 +39,6 @@
       localStorage.setItem(lastPositionKey, audio.currentTime);
     });
 
-    // JavaScript to handle audio ended event
-    audio.addEventListener('ended', function() {
-      // Clear saved playback time and submit the form when the audio ends
-      localStorage.removeItem(lastPositionKey);
-      document.getElementById('listeningForm').submit();
-    });
-
-    document.getElementById('listeningForm').addEventListener('submit', function(event) {
-        // Remove the localStorage item
-        localStorage.removeItem('audioLastPosition');
-        console.log('Removed localStorage item on form submit: audioLastPosition');    
-    });
-
     // Save audio playback position before the page unloads
     window.addEventListener('beforeunload', function() {
       if (audio) {
@@ -72,6 +59,19 @@
           console.error('Error playing audio:', error);
         });
       }
+    });
+
+    // JavaScript to handle audio ended event
+    audio.addEventListener('ended', function() {
+      // Clear saved playback time and submit the form when the audio ends
+      localStorage.removeItem(lastPositionKey);
+      document.getElementById('listeningForm').submit();
+    });
+
+    document.getElementById('listeningForm').addEventListener('submit', function(event) {
+        // Remove the localStorage item
+        localStorage.removeItem('audioLastPosition');
+        console.log('Removed localStorage item on form submit: audioLastPosition');    
     });
 
     // Webcam access

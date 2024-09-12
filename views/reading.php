@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.png">
-    <title>Reading Section</title> 
-
-    <?php require 'bootstrap.php'; ?>
-
-    <script src="/assets/js/custom.js"></script>
+    <title>Reading Comprehension</title> 
+    <?php require 'bootstrap.php'; ?>    
 </head>
 <body>
-    <div class="container mt-5 main-content mb-5">
-        <h1>Reading Section</h1>
-        
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>            
+        </div>        
+    </div>
+    <div class="container mt-3 main-content mb-5">      
         <form id="exam-form" action="/reading" method="post">
             <!-- Example Question -->
             <?php include 'questions/reading_questions.php'; ?>
@@ -39,5 +39,6 @@
         // Call the function when the page loads
         window.onload = startWebcam;
     </script>
+    <script src="/assets/js/custom-reading.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Load saved countdown duration and form data from local storage
-    var countdownDuration = localStorage.getItem('countdownDuration') || 25 * 60; // Default to 10 minutes if not set
+    var countdownDuration = localStorage.getItem('countdownDuration') || 55 * 60; // Default to 10 minutes if not set
     $('#timer').text(formatTime(countdownDuration));
 
     // Restore form answers from local storage

@@ -1,12 +1,12 @@
 $(document).ready(function() {
     // Load saved countdown duration and form data from local storage
-    var countdownDuration = localStorage.getItem('countdownDuration') || 55 * 60; // Default to 10 minutes if not set
+    var countdownDuration = localStorage.getItem('countdownDurationReading') || 55 * 60; // Default to 10 minutes if not set
     $('#timer').text(formatTime(countdownDuration));
 
     // Restore form answers from local storage
     $('input[type=radio]').each(function() {
         var questionName = $(this).attr('name');
-        var savedAnswer = localStorage.getItem('answer_' + questionName);
+        var savedAnswer = localStorage.getItem('answer_reading' + questionName);
         if (savedAnswer && $(this).val() === savedAnswer) {
             $(this).prop('checked', true);
         }
@@ -23,7 +23,7 @@ $(document).ready(function() {
         $('#timer').text(formatTime(countdownDuration));
 
         // Save timer data to local storage
-        localStorage.setItem('countdownDuration', countdownDuration);
+        localStorage.setItem('countdownDurationReading', countdownDuration);
 
         if (countdownDuration < 0) {
             $('#exam-form').submit(); // Automatically submit the form when the timer ends
@@ -37,14 +37,14 @@ $(document).ready(function() {
     $('input[type=radio]').change(function() {
         var questionName = $(this).attr('name');
         var answer = $(this).val();
-        localStorage.setItem('answer_' + questionName, answer);
+        localStorage.setItem('answer_reading' + questionName, answer);
     });
 
     // Handle form submission
     $('#exam-form').on('submit', function() {
-        localStorage.removeItem('countdownDuration'); // Clear timer data on form submission
+        localStorage.removeItem('countdownDurationReading'); // Clear timer data on form submission
         $('input[type=radio]').each(function() {
-            localStorage.removeItem('answer_' + $(this).attr('name')); // Clear saved answers
+            localStorage.removeItem('answer_reading' + $(this).attr('name')); // Clear saved answers
         });
     });
 });

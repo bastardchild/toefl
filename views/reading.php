@@ -7,7 +7,7 @@
     <title>Reading Comprehension</title> 
     <?php require 'bootstrap.php'; ?>    
 </head>
-<body>
+<body class="exam-area">
     <div class="container">
         <div class="row">
             <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>            
@@ -18,7 +18,7 @@
             <!-- Example Question -->
             <?php include 'questions/reading_questions.php'; ?>
 
-            <button type="submit" class="btn btn-success">Submit Answer</button>
+            <button type="submit" class="btn btn-success">Submit Answers <i class="bi bi-arrow-up-right-square"></button>
         </form>
         <a href="/logout" class="btn btn-danger d-none">Logout</a>
     </div>

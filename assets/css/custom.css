@@ -11,6 +11,8 @@ img{
 body{
     background: #EDF2F9;
     font-family: 'Titillium Web', sans-serif;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-size: 18px;
     color: var(--navy);
 }
 .box-login{
@@ -67,6 +69,9 @@ video, .cam-exam {
     background: #fff;
     box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
 }
+.exam-area .main-content{
+    padding-right: 60px;
+}
 .form-group{
     margin-bottom: 25px;
 }
@@ -115,5 +120,7 @@ hr {
 }
 .form-check-input{
     border-color: #333;
-
+}
+u{
+    font-weight: bold;
 }

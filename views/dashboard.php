@@ -157,7 +157,7 @@
                         </label>
                     </div>    
                     </div>                
-                    <button type="submit" class="btn btn-primary mt-3" id="startTest" disabled>Start TOEFL Exam</button>
+                    <button type="submit" class="btn btn-primary mt-3" id="startTest" disabled>Start TOEFL Exam <i class="bi bi-arrow-up-right-square"></i></button>
                 </form>
             </div>
           

@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.png">
     <title>Written and Structure Expression</title> 
-
-    <?php require 'bootstrap.php'; ?>
-
-    <script src="/assets/js/custom.js"></script>
+    <?php require 'bootstrap.php'; ?>    
 </head>
-<body>
+<body class="exam-area">
     <div class="container">
         <div class="row">
             <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>            
@@ -21,13 +18,14 @@
             <!-- Example Question -->
             <?php include 'questions/writing_questions.php'; ?>
 
-            <button type="submit" class="btn btn-success">Submit Answers</button>
+            <button type="submit" class="btn btn-success">Submit Answers <i class="bi bi-arrow-up-right-square"></button>
         </form>
         <a href="/logout" class="btn btn-danger d-none">Logout</a>
     </div>
 
     <div class="exam-timer">Time left: <span id="timer">25:00</span></div>
     <video id="webcam" class="cam-exam" autoplay></video>
+    <script src="/assets/js/custom-writing.js"></script>
     <script>        
         // Webcam access
         async function startWebcam() {

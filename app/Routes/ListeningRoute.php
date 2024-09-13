@@ -33,7 +33,7 @@ $app->post('/listening', function (Request $request, Response $response, array $
             ->withStatus(302);
     }
 
-    $correctAnswers = ['question1' => 'A'];
+    $correctAnswers = ['question1' => 'D', 'question2' => 'D', 'question3' => 'A', 'question4' => 'D', 'question5' => 'C', 'question6' => 'D', 'question7' => 'A', 'question8' => 'C', 'question9' => 'B', 'question10' => 'A', 'question11' => 'A', 'question12' => 'A', 'question13' => 'C', 'question14' => 'D', 'question15' => 'C', 'question16' => 'B', 'question17' => 'A', 'question18' => 'C', 'question19' => 'B', 'question20' => 'B', 'question21' => 'D', 'question22' => 'D', 'question23' => 'A', 'question24' => 'D', 'question25' => 'A', 'question26' => 'C', 'question27' => 'C', 'question28' => 'D', 'question29' => 'D', 'question30' => 'B', 'question31' => 'B', 'question32' => 'C', 'question33' => 'A', 'question34' => 'D', 'question35' => 'A', 'question36' => 'D', 'question37' => 'B', 'question38' => 'C', 'question39' => 'B', 'question40' => 'C', 'question41' => 'D', 'question42' => 'D', 'question43' => 'B', 'question44' => 'B', 'question45' => 'B', 'question46' => 'A', 'question47' => 'D', 'question48' => 'B', 'question49' => 'D', 'question50' => 'B'];
     $userAnswers = $request->getParsedBody();
     $totalCorrect = 0;
     foreach ($correctAnswers as $question => $correctAnswer) {

@@ -1,4 +1,4 @@
-<h4>PERATURAN PELAKSANAAN UJIAN</h4>
+<h2>PERATURAN PELAKSANAAN UJIAN</h2>
 <ol>
     <li>Peserta harus mengerjakan tes secara mandiri dan tidak dibantu oleh orang lain.</li>
     <li>Peserta tidak diperbolehkan mendokumentasikan dan menyebarluaskan soal tes.</li>

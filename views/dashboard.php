@@ -16,7 +16,7 @@
         </div>        
     </div>
 
-    <div class="container mt-3 main-content">         
+    <div class="container mt-3 main-content mb-5">         
         <!-- error exam -->
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-danger">
@@ -30,7 +30,7 @@
             <?php require 'admin-area.php'; ?>   
 
         <?php else: ?>   
-            <div class="col-md-8">  
+            <div class="col-md-12">  
             <?php if (isset($_SESSION['user_id'])): ?>
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
@@ -76,9 +76,10 @@
                         }
                     </script>
             <?php endif; ?>
-
-            <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
-            <p class="pretest-txt">Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
+            <div class="pretest-txt">
+                <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
+                <p>Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
+            </div> 
 
             <div class="pre-test-hardware" <?php echo $isCompleted ? 'style="display:none;"' : ''; ?>>
                 <h2 class="mt-5">Persiapan Ujian: Tes Webcam dan Speaker</h2>
@@ -86,27 +87,26 @@
                 <!-- Webcam Test Section -->
                 <div class="mt-3">
                     <h4><span class="number-b">1</span> Tes Kamera Webcam <i class="bi bi-webcam"></i></h4>
-                    <p>Kami akan melakukan tes singkat untuk memastikan kamera webcam Anda berfungsi dengan baik. Selama ujian, webcam Anda akan digunakan untuk tujuan keamanan dan pemantauan. Silakan izinkan akses ke webcam Anda.</p>
-                    <video id="webcam" autoplay></video>
-                    <div>
-                        <input type="checkbox" id="webcamCheck" required>
-                        <label for="webcamCheck">Saya dapat melihat tampilan webcam dengan jelas.</label>
-                    </div>
-                </div>                
-                
+                    <p>Kami akan melakukan tes singkat untuk memastikan kamera webcam Anda berfungsi dengan baik. <br>Selama ujian, webcam Anda akan digunakan untuk tujuan keamanan dan pemantauan. Silakan izinkan akses ke webcam Anda.</p>
+                    <video id="webcam" autoplay></video>    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="webcamCheck" required>
+                        <label class="form-check-label" for="webcamCheck">Saya dapat melihat tampilan webcam dengan jelas.</label>
+                    </div>                     
+                </div>
 
                 <!-- Speaker Test Section -->
                 <div class="mt-5">
                     <h4><span class="number-b">2</span> Tes Speaker <i class="bi bi-volume-up-fill"></i></h4>
-                    <p>Untuk memastikan Anda dapat mendengar bagian audio dari ujian, kami akan menjalankan tes speaker. Pastikan speaker atau headphone Anda terhubung dan berfungsi dengan baik.</p>
+                    <p>Untuk memastikan Anda dapat mendengar bagian audio dari ujian, kami akan menjalankan tes speaker. <br>Pastikan speaker atau headphone Anda terhubung dan berfungsi dengan baik.</p>
                     <audio id="audioTest" controls>
                         <source src="/assets/audio/audio-test.mp3" type="audio/mp3">
                         Your browser does not support the audio element.
-                    </audio>
-                    <div>
-                        <input type="checkbox" id="speakerCheck" required>
-                        <label for="speakerCheck">Saya dapat mendengar audio dengan jelas.</label>
-                    </div>
+                    </audio>                                          
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="speakerCheck" required>
+                        <label class="form-check-label" for="speakerCheck">Saya dapat mendengar audio dengan jelas.</label>
+                    </div>     
                 </div>
                 <hr class="mt-5">
                 <button id="submitpretest" class="btn btn-success mt-3" disabled>Next Step <i class="bi bi-arrow-up-right-square"></i></button>
@@ -115,7 +115,7 @@
             <!-- Webcam Capture Section -->
             <div class="webcam-capture mt-5" style="display:none;">
                 <h4><span class="number-b">3</span> Pengambilan Screenshot Webcam <i class="bi bi-webcam"></i></h4>
-                <p>Untuk keperluan verifikasi identitas, kami akan mengambil screenshot dari webcam Anda. Silakan posisikan diri Anda di depan kamera dan pastikan pencahayaan memadai.</p>
+                <p>Untuk keperluan verifikasi identitas, kami akan mengambil screenshot dari webcam Anda. <br>Silakan posisikan diri Anda di depan kamera dan pastikan pencahayaan memadai.</p>
                 <div class="row">
                     <div class="col-md-6">
                         <!-- Webcam video and capture controls -->
@@ -142,7 +142,6 @@
                 </form>
                 <hr class="mt-5">
                 <button id="submitWebcamCapture" class="btn btn-success mt-3" disabled>Next Step <i class="bi bi-arrow-up-right-square"></i></button>
-
             </div>
 
             <!-- Ready to Start Exam Section -->
@@ -150,14 +149,18 @@
                 <?php require 'aturan.php'; ?>                                
                 <p class="mt-5">Ready to start the TOEFL exam? Click the button below to begin.</p>
                 <form action="/start-exam" method="post">
-                    <input type="checkbox" id="termCondition" required>
-                    <label for="termCondition">Saya setuju dan sudah membaca peraturan pelaksanaan ujian.</label><br>
+                    <div class="alert alert-secondary">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="termCondition" required>
+                        <label class="form-check-label" for="termCondition">
+                            <strong>Saya menyatakan telah membaca, memahami, dan menyetujui seluruh ketentuan yang tercantum dalam peraturan pelaksanaan ujian ini. Saya bersedia mengikuti semua aturan yang berlaku dan bertanggung jawab atas segala tindakan yang saya lakukan selama pelaksanaan ujian.</strong>
+                        </label>
+                    </div>    
+                    </div>                
                     <button type="submit" class="btn btn-primary mt-3" id="startTest" disabled>Start TOEFL Exam</button>
                 </form>
             </div>
           
-               
-
             <script src="/assets/js/dashboard.js"></script>
         <?php endif; ?>
         </div>       

@@ -1,3 +1,23 @@
+<section class="section-exam">
+<h2>Structure and Written Expression</h2>
+<p><strong>Time: 25 minutes</strong></p>
+<p>This section tests your ability to recognize grammar and usage suitable for standard written English. This section is divided into two parts, each with its own directions.</p>
+<hr>
+<h3>Structure</h3>
+<p><strong>Directions:</strong> Items in this part are incomplete sentences. Following each of these sentences, there are four words or phrases. You should select the one word or phrase-(A), (B), (C), or (D)—that best completes the sentence. Then fill in the space on your answer sheet that matches the letter of the answer that you have selected.</p>
+<p><strong>Example 1</strong></p>
+<p><strong>Pepsin _______ an enzyme used in digestion.</strong><br> (A) <em>that</em><br> (B) <em>is</em><br> (C) <em>of</em><br> (D) <em>being</em></p>
+<p>Sample Answer <strong>(B)</strong></p>
+<p>This sentence should properly read “<em>Pepsin is an enzyme used in digestion</em>." You should fill in <strong>(B)</strong> on your answer sheet.</p>
+<p><strong>Example II</strong></p>
+<p><strong>_____ large natural lakes are found in the state of South Carolina.</strong><br> (A) <em>There are no</em><br> (B) <em>Not the</em><br> (C) <em>It is not</em><br> (D) <em>No</em></p>
+<p>Sample Answer <strong>(D)</strong></p>
+<p>This sentence should properly read “<em>No large natural lakes are found in the state of South Carolina</em>." You should fill in <strong>(D)</strong> on your answer sheet.</p>
+<p><strong>As soon as you understand the directions, begin work on this part.</strong></p>
+</section>
+
+<hr>
+
 <div class="form-group">
     <label for="question1">1. Ellen Swallow Richards became the first woman to enter, graduate from, and _________ at the Massachusetts Institute of Technology.</label>
     <div class="form-check">

@@ -23,7 +23,7 @@
         <a href="/logout" class="btn btn-danger d-none">Logout</a>
     </div>
 
-    <div class="exam-timer">Time left: <span id="timer">10:00</span></div>
+    <div class="exam-timer">Time left: <span id="timer">55:00</span></div>
     <video id="webcam" class="cam-exam" autoplay></video>
     <script>        
         // Webcam access

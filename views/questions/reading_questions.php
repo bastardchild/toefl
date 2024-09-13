@@ -1,5 +1,5 @@
 <div class="section-exam">
-    <h2 class="blank-radio">Reading Comprehension</h2>
+    <h2>Reading Comprehension</h2>
     <p><strong>Time: 55 minutes</strong></p>
     <p>This section of the test measures your ability to comprehend written materials.</p>
     <p><strong>Directions:</strong> This section contains several passages, each followed by a number of questions. Read the passages and, for each question, choose the one best answer--(A), (B), (C), or (D)—based on what is stated in the passage or on what can be inferred from the passage. Then fill in the space on your answer sheet that matches the letter of the answer that you have selected.</p>
@@ -15,11 +15,10 @@
     <p>According to the passage, male birds defend their territory primarily against<br> <strong>(A) female birds</strong><br> <strong>(B) birds of other species</strong><br> <strong>(C) males of their own species</strong><br> <strong>(D) mammals</strong></p>
     <p>Sample Answer <strong>(D)</strong></p>
     <p>The passage states that “Male birds defend their territory chiefly against other males of the same species." You should fill in <strong>(C)</strong> on your answer sheet.</p>
-    <p>As soon as you understand the directions, begin work on this section.</p>
+    <p><strong>As soon as you understand the directions, begin work on this section.</strong></p>
 </div>
 <hr>
 
-<h3>START EXAM</h3>
 <h4>Questions 1-11</h4>
 <img src="/assets/img/R1-11.png" width="1000">   
 <div class="form-group">
@@ -242,6 +241,7 @@
     </div>
 </div>
 
+<hr>
 <h4>Questions 12-23</h4>
 <img src="/assets/img/R12-23.png" width="900" alt="">
 
@@ -485,6 +485,7 @@
     </div>
 </div>
 
+<hr>
 <h4>Questions 24-33</h4>
 <img src="/assets/img/R24-33.png" width="1000"/>
 
@@ -688,8 +689,10 @@
     </div>
 </div>
 
+<hr>
 <h4>Questions 34-41</h4>
 <img src="/assets/img/R34-41.png" width="1000" alt="">
+
 <div class="form-group">
     <label for="question34">34. Which of the following is NOT one of the author's purposes in writing the passage?</label>
     <div class="form-check">
@@ -850,6 +853,7 @@
     </div>
 </div>
 
+<hr>
 <h4>Questions 42-50</h4>
 <img src="/assets/img/R42-50.png" width="1000" alt="">
 

@@ -30,6 +30,7 @@ $app->get('/dashboard', function ($request, $response, $args) {
     // Fetch user data for the DataTable     
     $users = \App\Models\User::leftJoin('exams', 'users.id', '=', 'exams.user_id')
     ->select('users.*', 'exams.status_id as exam_status_id')
+    ->where('users.role_id', '!=', 1) // Exclude users with role_id = 1
     ->get();
 
     $message = $_SESSION['message_notification'] ?? null;

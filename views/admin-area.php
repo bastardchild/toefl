@@ -76,7 +76,7 @@
                 </td>
                 <td><?= htmlspecialchars($user->exam_code ?? 'N/A') ?></td>
                 <td>
-                    <a href="/reset-exam/<?= htmlspecialchars($user->id) ?>" class="btn btn-dark">Reset</a>
+                    <a href="/reset-exam/<?= htmlspecialchars($user->id) ?>" class="btn btn-dark btn-sm">Reset</a>
                 </td>
             </tr>
         <?php endforeach; ?>

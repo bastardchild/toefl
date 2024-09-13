@@ -19,9 +19,10 @@
         <h1>Selamat, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h1>
         <p>Anda Telah menyelesaikan tes, Nilai TOEFL Anda adalah:</p>
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-sm">            
                 <div class="ttl-score">
+                    <i class="bi bi-trophy" style="font-size: 35px;"></i><br>
                     Total Score<br>
                     <span><?php echo htmlspecialchars($toefl_score); ?></span>
                 </div>  

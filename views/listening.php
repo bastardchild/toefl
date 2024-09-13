@@ -8,7 +8,12 @@
   <?php require 'bootstrap.php'; ?>
 </head>
 <body>
-  <div class="container mt-5 main-content mb-5">
+  <div class="container">
+        <div class="row">
+            <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>            
+        </div>        
+    </div>
+  <div class="container mt-3 main-content mb-5">
     <h1>Listening Section</h1>
 
     <audio id="listeningAudio" src="/assets/audio/audio-test.mp3"></audio>

@@ -21,7 +21,7 @@
     <form id="listeningForm" action="/listening" method="post">
       <?php include 'questions/listening_questions.php'; ?>
 
-      <button type="submit" class="btn btn-success">Submit Answers <i class="bi bi-arrow-up-right-square"></button>
+      <button type="submit" class="btn btn-success">Submit Answers <i class="bi bi-arrow-up-right-square"></i></button>
     </form>
     <a href="/logout" class="btn btn-danger d-none">Logout</a>
   </div>

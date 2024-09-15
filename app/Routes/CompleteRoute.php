@@ -65,6 +65,12 @@ $app->get('/complete', function ($request, $response, $args) {
     // Final TOEFL score (rounded to the nearest integer)
     $toefl_score = round($average_converted_score * 10);
 
+    // save toefl_score to database
+    if (!$examResult->toefl_score) {
+        $examResult->toefl_score = $toefl_score;
+        $examResult->save();
+    }
+
     // Pass the mapped scores and final TOEFL score to the complete.php view
     ob_start();
     require __DIR__ . '/../../views/complete.php';

@@ -2,6 +2,9 @@
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use App\Models\ExamResult;
+use App\Models\User;
+use App\Models\Exam;
+
 
 // complete route
 $app->get('/complete', function ($request, $response, $args) {
@@ -10,6 +13,22 @@ $app->get('/complete', function ($request, $response, $args) {
             ->withHeader('Location', '/')
             ->withStatus(302);
     }
+
+    // Retrieve user information from the 'users' table
+    $user = User::where('id', $_SESSION['user_id'])->first();
+
+    if (!$user) {
+        // Handle case where user is not found (e.g., redirect to login)
+        return $response->withHeader('Location', '/login')->withStatus(302);
+    }
+
+    $first_name = $user->name;
+    $middle_name = $user->middle_name;
+    $last_name = $user->last_name;
+
+    $examDate = \App\Models\Exam::where('user_id', $_SESSION['user_id'])->first();
+    $createdAtTimestamp = $examDate->created_at;
+    $createdAtExam= date('d-m-Y', strtotime($createdAtTimestamp));
 
     // Retrieve the user's exam results
     $examResult = \App\Models\ExamResult::where('user_id', $_SESSION['user_id'])->first();

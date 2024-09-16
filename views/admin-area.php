@@ -7,7 +7,7 @@
     </div>
 <?php endif; ?>
 <hr>
-<h3 class="mt-3">Tambah Peserta</h3>
+<h4 class="mt-3">Tambah Peserta</h4>
 <b>Upload CSV File</b><br>
 <form action="/upload-csv" method="post" enctype="multipart/form-data">
     <label for="csv">Select CSV file:</label>
@@ -16,7 +16,7 @@
 </form>
 
 <hr>
-<h3 class="mt-3">Download Peserta</h3>
+<h4 class="mt-3">Download Peserta</h4>
 <b>Download CSV File</b><br>
 <form action="/download-csv" method="post">
     <label for="exam_code">Select Exam Code:</label>
@@ -33,7 +33,7 @@
 
 <!-- DataTable HTML -->
 <hr>
-<h3 class="mt-3">Data Peserta</h3>
+<h4 class="mt-3">Data Peserta</h4>
 <table id="userTable" class="display">
     <thead>
         <tr>
@@ -50,7 +50,7 @@
         <?php foreach ($users as $index => $user): ?>
             <tr>
                 <td><?= htmlspecialchars($index + 1) ?></td>
-                <td><?= strtoupper(htmlspecialchars($user->name)) ?> <?= strtoupper(htmlspecialchars($user->middle_name)) ?> <?= strtoupper(htmlspecialchars($user->last_name)) ?></td>
+                <td style="font-size: 14px;"><?= strtoupper(htmlspecialchars($user->name)) ?> <?= strtoupper(htmlspecialchars($user->middle_name)) ?> <?= strtoupper(htmlspecialchars($user->last_name)) ?></td>
                 <td><?= htmlspecialchars($user->username) ?></td>
                 <td>
                     <?php

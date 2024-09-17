@@ -79,8 +79,9 @@
             <div class="pretest-txt">
                 <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
                 <p>Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
+                <hr>
             </div> 
-            <hr>
+            
             <div class="pre-test-hardware" <?php echo $isCompleted ? 'style="display:none;"' : ''; ?>>
                 <h2 class="mt-3">Persiapan Ujian: Tes Webcam dan Speaker</h2>
                

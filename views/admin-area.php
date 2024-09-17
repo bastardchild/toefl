@@ -34,6 +34,18 @@
 <!-- DataTable HTML -->
 <hr>
 <h3 class="mt-3">Data Peserta</h3>
+    <div class="row mt-3 mb-3">
+        <div class="col-md-4">
+            <!-- Dropdown for exam code filter -->
+            <label for="examCodeFilter">Filter Kode Ujian:</label>
+            <select id="examCodeFilter" class="form-control">
+                <option value="">All</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+        </div>
+    </div>
+    
+
     <table id="userTable" class="display">
         <thead>
             <tr>
@@ -53,44 +65,67 @@
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script>
-        $(document).ready(function() {
-            $('#userTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '/api/users',
-                columns: [
-                    { data: 0 }, // No
-                    { 
-                        data: 1, // Nama
-                        render: function(data, type, row) {
-                            return data.toUpperCase();
-                        }
-                    },
-                    { data: 2 }, // Username
-                    { 
-                        data: 3, // Status
-                        render: function(data, type, row) {
-                            switch(data) {
-                                case 1: return 'Ongoing';
-                                case 2: return 'Complete';
-                                default: return 'N/A';
-                            }
-                        }
-                    },
-                    { 
-                        data: 4, // Foto
-                        render: function(data, type, row) {
-                            return data ? `<img src="/uploads/${data}" alt="Foto" style="width: 100px;">` : 'No photo';
-                        }
-                    },
-                    { data: 5 }, // Kode Ujian
-                    { 
-                        data: 0, // Reset (using ID from first column)
-                        render: function(data, type, row) {
-                            return `<a href="/reset-exam/${data}" class="btn btn-dark btn-sm">Reset</a>`;
-                        }
+$(document).ready(function() {
+    var table = $('#userTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '/api/users',
+            data: function(d) {
+                d.exam_code = $('#examCodeFilter').val(); // Add the selected exam code to the request
+            }
+        },
+        columns: [
+            { data: 0 }, // No
+            { 
+                data: 1, // Nama
+                render: function(data, type, row) {
+                    return data.toUpperCase();
+                }
+            },
+            { data: 2 }, // Username
+            { 
+                data: 3, // Status
+                render: function(data, type, row) {
+                    switch(data) {
+                        case 1: return 'Ongoing';
+                        case 2: return 'Complete';
+                        default: return 'N/A';
                     }
-                ]
+                }
+            },
+            { 
+                data: 4, // Foto
+                render: function(data, type, row) {
+                    return data ? `<img src="/uploads/${data}" alt="Foto" style="width: 100px;">` : 'No photo';
+                }
+            },
+            { data: 5 }, // Kode Ujian
+            { 
+                data: 0, // Reset (using ID from first column)
+                render: function(data, type, row) {
+                    return `<a href="/reset-exam/${data}" class="btn btn-dark btn-sm">Reset</a>`;
+                }
+            }
+        ]
+    });
+
+    // Populate the dropdown with unique exam codes from the server
+    $.ajax({
+        url: '/api/exam-codes',
+        method: 'GET',
+        success: function(data) {
+            var options = '<option value="">All</option>';
+            data.forEach(function(code) {
+                options += `<option value="${code}">${code}</option>`;
             });
-        });
+            $('#examCodeFilter').html(options);
+        }
+    });
+
+    // Filter table when the dropdown value changes
+    $('#examCodeFilter').on('change', function() {
+        table.ajax.reload();
+    });
+});
     </script>

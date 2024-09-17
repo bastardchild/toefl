@@ -15,8 +15,8 @@
         </div>        
     </div>
 
-    <div class="container mt-3 main-content">
-        <h1>Selamat, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h1>
+    <div class="container mt-3 main-content mb-3">
+        <h3>Selamat, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
         <p>Anda Telah menyelesaikan tes, Nilai TOEFL Anda adalah:</p>
 
         <div class="row mb-5">
@@ -28,18 +28,19 @@
                 </div>  
             </div>
 
-            <div class="col-sm">            
-                 
+            <div class="col-sm" style="font-size: 20px;">
+                Nama: <strong><?= $first_name ?> <?= $middle_name ?> <?= $last_name ?></strong><br>
+                Tanggal Ujian: <strong><?= $createdAtExam ?></strong>
             </div>
 
             <div class="col-sm">            
                 
             </div>
-
-            <div class="col-sm">            
-                  
-            </div>
+            
         </div>
     </div>
+    <footer>
+        <div class="container copyr mb-3">Copyright 2024 © Universitas Merdeka Malang</div>
+    </footer>
 </body>
 </html>

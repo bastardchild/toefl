@@ -16,6 +16,7 @@ session_start();
 
 $app = AppFactory::create(); // Create Slim app
 
+$app->addRoutingMiddleware();
 // Add Error Middleware
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 

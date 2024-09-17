@@ -7,7 +7,7 @@
     </div>
 <?php endif; ?>
 <hr>
-<h3 class="mt-3">Tambah Peserta</h3>
+<h4 class="mt-3">Tambah Peserta</h4>
 <b>Upload CSV File</b><br>
 <form action="/upload-csv" method="post" enctype="multipart/form-data">
     <label for="csv">Select CSV file:</label>
@@ -16,7 +16,7 @@
 </form>
 
 <hr>
-<h3 class="mt-3">Download Peserta</h3>
+<h4 class="mt-3">Download Peserta</h4>
 <b>Download CSV File</b><br>
 <form action="/download-csv" method="post">
     <label for="exam_code">Select Exam Code:</label>

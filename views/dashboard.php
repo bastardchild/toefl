@@ -16,7 +16,7 @@
         </div>        
     </div>
 
-    <div class="container mt-3 main-content mb-5">         
+    <div class="container mt-3 main-content mb-3">         
         <!-- error exam -->
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-danger">
@@ -80,14 +80,14 @@
                 <h3>Selamat Datang, <em><?= htmlspecialchars($_SESSION['name']) ?></em>!</h3>
                 <p>Sebelum memulai ujian, penting untuk menyelesaikan beberapa pemeriksaan awal untuk memastikan semuanya siap. <br>Silakan ikuti langkah-langkah di bawah ini:</p>
             </div> 
-
+            <hr>
             <div class="pre-test-hardware" <?php echo $isCompleted ? 'style="display:none;"' : ''; ?>>
-                <h2 class="mt-5">Persiapan Ujian: Tes Webcam dan Speaker</h2>
+                <h2 class="mt-3">Persiapan Ujian: Tes Webcam dan Speaker</h2>
                
                 <!-- Webcam Test Section -->
                 <div class="mt-3">
                     <h4><span class="number-b">1</span> Tes Kamera Webcam <i class="bi bi-webcam"></i></h4>
-                    <p>Kami akan melakukan tes singkat untuk memastikan kamera webcam Anda berfungsi dengan baik. <br>Selama ujian, webcam Anda akan digunakan untuk tujuan keamanan dan pemantauan. Silakan izinkan akses ke webcam Anda.</p>
+                    <p>Kami akan melakukan tes singkat untuk memastikan kamera webcam Anda berfungsi dengan baik. <br>Selama ujian, webcam Anda akan digunakan untuk tujuan keamanan dan pemantauan. <br><strong>Silakan izinkan akses ke webcam Anda.</strong></p>
                     <video id="webcam" autoplay></video>    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="webcamCheck" required>
@@ -108,12 +108,12 @@
                         <label class="form-check-label" for="speakerCheck">Saya dapat mendengar audio dengan jelas.</label>
                     </div>     
                 </div>
-                <hr class="mt-5">
+                <hr class="mt-3">
                 <button id="submitpretest" class="btn btn-success mt-3" disabled>Next Step <i class="bi bi-arrow-up-right-square"></i></button>
             </div>
 
             <!-- Webcam Capture Section -->
-            <div class="webcam-capture mt-5" style="display:none;">
+            <div class="webcam-capture mt-3" style="display:none;">
                 <h4><span class="number-b">3</span> Pengambilan Screenshot Webcam <i class="bi bi-webcam"></i></h4>
                 <p>Untuk keperluan verifikasi identitas, kami akan mengambil screenshot dari webcam Anda. <br>Silakan posisikan diri Anda di depan kamera dan pastikan pencahayaan memadai.</p>
                 <div class="row">
@@ -165,5 +165,9 @@
         <?php endif; ?>
         </div>       
     </div>
+
+    <footer>
+        <div class="container copyr mb-3">Copyright 2024 © Universitas Merdeka Malang</div>
+    </footer>
 </body>
 </html>

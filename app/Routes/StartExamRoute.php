@@ -15,7 +15,7 @@ $app->post('/start-exam', function (Request $request, Response $response, array 
     $existingExam = Exam::where('user_id', $userId)->first();
 
     if ($existingExam) {
-        $_SESSION['error_message'] = 'You have already started an exam.';
+        $_SESSION['error_message'] = 'You have already started an exam. Please contact administrator to fix it.';
         return $response
             ->withHeader('Location', '/dashboard')
             ->withStatus(302);

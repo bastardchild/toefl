@@ -34,61 +34,63 @@
 <!-- DataTable HTML -->
 <hr>
 <h3 class="mt-3">Data Peserta</h3>
-<table id="userTable" class="display">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Username</th>
-            <th>Status</th>
-            <th>Foto</th>
-            <th>Kode Ujian</th>
-            <th>Reset</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($users as $index => $user): ?>
+    <table id="userTable" class="display">
+        <thead>
             <tr>
-                <td><?= htmlspecialchars($index + 1) ?></td>
-                <td><?= strtoupper(htmlspecialchars($user->name)) ?> <?= strtoupper(htmlspecialchars($user->middle_name)) ?> <?= strtoupper(htmlspecialchars($user->last_name)) ?></td>
-                <td><?= htmlspecialchars($user->username) ?></td>
-                <td>
-                    <?php
-                        // Map status_id to status description
-                        switch ($user->exam_status_id) {
-                            case 1:
-                                echo 'Ongoing';
-                                break;
-                            case 2:
-                                echo 'Complete';
-                                break;
-                            default:
-                                echo 'N/A';
-                        }
-                    ?>
-                </td>
-                <td>
-                    <?php if ($user->cam_image): ?>
-                        <img src="/uploads/<?= htmlspecialchars($user->cam_image) ?>" alt="Foto" style="width: 100px;">
-                    <?php else: ?>
-                        No photo
-                    <?php endif; ?>
-                </td>
-                <td><?= htmlspecialchars($user->exam_code ?? 'N/A') ?></td>
-                <td>
-                    <a href="/reset-exam/<?= htmlspecialchars($user->id) ?>" class="btn btn-dark btn-sm">Reset</a>
-                </td>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Foto</th>
+                <th>Kode Ujian</th>
+                <th>Reset</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+    </table>   
 
 <!-- Include DataTables CSS and JS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#userTable').DataTable();
-    });
-</script>
+        $(document).ready(function() {
+            $('#userTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '/api/users',
+                columns: [
+                    { data: 0 }, // No
+                    { 
+                        data: 1, // Nama
+                        render: function(data, type, row) {
+                            return data.toUpperCase();
+                        }
+                    },
+                    { data: 2 }, // Username
+                    { 
+                        data: 3, // Status
+                        render: function(data, type, row) {
+                            switch(data) {
+                                case 1: return 'Ongoing';
+                                case 2: return 'Complete';
+                                default: return 'N/A';
+                            }
+                        }
+                    },
+                    { 
+                        data: 4, // Foto
+                        render: function(data, type, row) {
+                            return data ? `<img src="/uploads/${data}" alt="Foto" style="width: 100px;">` : 'No photo';
+                        }
+                    },
+                    { data: 5 }, // Kode Ujian
+                    { 
+                        data: 0, // Reset (using ID from first column)
+                        render: function(data, type, row) {
+                            return `<a href="/reset-exam/${data}" class="btn btn-dark btn-sm">Reset</a>`;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>

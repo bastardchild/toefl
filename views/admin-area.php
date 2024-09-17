@@ -90,7 +90,7 @@ $(document).ready(function() {
                     switch(data) {
                         case 1: return 'Ongoing';
                         case 2: return 'Complete';
-                        default: return 'N/A';
+                        default: return '-';
                     }
                 }
             },

@@ -70,7 +70,46 @@ $app->post('/reading', function (Request $request, Response $response, array $ar
 
     unset($_SESSION['current_section']);
 
-    return $response
-        ->withHeader('Location', '/complete')
-        ->withStatus(302);
+    $response->getBody()->write("
+        <html>
+        <head>
+            <title>Submission Successful</title>
+            <script type='text/javascript'>
+                setTimeout(function() {
+                    window.location.href = '/complete';
+                }, 3000); // Redirect after 3 seconds
+            </script>
+            <style type='text/css'>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    text-align: center;
+                    padding: 50px;
+                }
+                .notification {
+                    background-color: #4CAF50;
+                    color: white;
+                    padding: 15px;
+                    border-radius: 5px;
+                    display: inline-block;
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    line-height: 1.4;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='notification'>Jawaban anda sudah tersimpan.<br>Silahkan tunggu untuk sesi selanjutnya...</div>
+            <div class='loading-gif'>
+                <img src='/assets/img/180-ring.svg' alt='Loading...'>
+            </div>
+        </body>
+        </html>
+    ");
+
+    return $response;
+
+    // return $response
+    //     ->withHeader('Location', '/complete')
+    //     ->withStatus(302);
 });

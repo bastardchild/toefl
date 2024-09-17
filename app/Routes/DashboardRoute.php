@@ -108,7 +108,7 @@ $app->get('/api/users', function (Request $request, Response $response) {
             $user->username,
             $user->exam_status_id,
             $user->cam_image,
-            $user->exam_code ?? 'N/A',
+            $user->exam_code ?? '-',
             $user->id // For reset link
         ];
     }

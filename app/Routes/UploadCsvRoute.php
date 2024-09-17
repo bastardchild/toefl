@@ -15,19 +15,15 @@ $app->post('/upload-csv', function (Request $request, Response $response, $args)
         // Process the CSV file
         if (($handle = fopen("uploads/" . $filename, "r")) !== false) {
             while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-                // Create user with name, middle_name, last_name, created_at, and exam_code if available
+                // Create user with name, middle_name, last_name, created_at, and exam_code
                 $userData = [
                     'name' => $data[0] ?? '',
                     'middle_name' => $data[1] ?? '',
                     'last_name' => $data[2] ?? '',
                     'role_id' => 2, // Assign default role_id
                     'created_at' => date('Y-m-d H:i:s'), // Add created_at column
+                    'exam_code' => $data[3] ?? '', // Add exam_code and default to an empty string if not set
                 ];
-
-                // Add exam_code only if it exists in the CSV data
-                if (isset($data[3])) {
-                    $userData['exam_code'] = $data[3];
-                }
 
                 $user = User::create($userData);
                 

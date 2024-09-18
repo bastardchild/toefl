@@ -52,7 +52,7 @@ $app->get('/api/users', function (Request $request, Response $response) {
     $length = $request->getQueryParams()['length'] ?? 10;
     $search = $request->getQueryParams()['search']['value'] ?? '';
     $orderColumn = $request->getQueryParams()['order'][0]['column'] ?? 1;
-    $orderDir = $request->getQueryParams()['order'][0]['dir'] ?? 'asc';
+    $orderDir = $request->getQueryParams()['order'][0]['dir'] ?? 'desc'; // Default to descending
     $examCode = $request->getQueryParams()['exam_code'] ?? '';
 
     $columns = [
@@ -97,6 +97,9 @@ $app->get('/api/users', function (Request $request, Response $response) {
         $query->orderBy($columns[$orderColumn], $orderDir);
     }
 
+    // Ensure the default sort by user_id descending
+    $query->orderBy('users.id', 'desc');
+
     // Apply pagination
     $users = $query->skip($start)->take($length)->get();
 
@@ -109,7 +112,8 @@ $app->get('/api/users', function (Request $request, Response $response) {
             $user->exam_status_id,
             $user->cam_image,
             $user->exam_code ?? '-',
-            $user->id // For reset link
+            $user->id, // For reset link
+            $user->id
         ];
     }
 

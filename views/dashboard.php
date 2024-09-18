@@ -12,6 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>
+            <div class="col-sm">
+                <?php if ($_SESSION['role_id'] === 1): ?>
+                    <a href="/add-user/" class="btn btn-success btn-sm mt-25px d-none" style="background: #222E5E; border-color: #222E5E;">Tambah Peserta</a>
+                    <?php endif; ?>
+                </div>
             <div class="col-sm"><a href="/logout" class="btn btn-danger float-end mt-25px">Logout</a></div>
         </div>        
     </div>

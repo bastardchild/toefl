@@ -130,3 +130,23 @@ u{
 #userTable{
     font-size: 14px;
 }
+.small-score{
+    font-size: 14px;
+    text-align: center;
+    background: #EDF2F9;
+    padding: 25px;
+    height: 133px;
+    border-radius: 10px;
+}
+.small-score h4{
+    font-size: 30px;
+}
+.lc{
+    background: #E0F7FA;
+}
+.we{
+    background: #FFEBEE;
+}
+.rc{
+    background: #F1F8E9;
+}

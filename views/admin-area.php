@@ -55,6 +55,7 @@
                 <th>Status</th>
                 <th>Foto</th>
                 <th>Kode Ujian</th>
+                <th>Delete</th>
                 <th>Reset</th>
             </tr>
         </thead>
@@ -104,6 +105,12 @@ $(document).ready(function() {
             { 
                 data: 6, // Reset (using ID from last column)
                 render: function(data, type, row) {
+                    return `<a href="/delete-usr/${data}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Delete</a>`;
+                }
+            },
+            { 
+                data: 7, // Reset (using ID from last column)
+                render: function(data, type, row) {
                     return `<a href="/reset-exam/${data}" class="btn btn-dark btn-sm">Reset</a>`;
                 }
             }
@@ -127,5 +134,10 @@ $(document).ready(function() {
     $('#examCodeFilter').on('change', function() {
         table.ajax.reload();
     });
-});
+    
+    });
+    // JavaScript function to confirm delete action
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this record? This action cannot be undone.');
+    }
     </script>

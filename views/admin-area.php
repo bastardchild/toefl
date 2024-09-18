@@ -51,7 +51,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Username</th>
+                <th>Username & Password</th>
                 <th>Status</th>
                 <th>Foto</th>
                 <th>Kode Ujian</th>
@@ -102,7 +102,7 @@ $(document).ready(function() {
             },
             { data: 5 }, // Kode Ujian
             { 
-                data: 0, // Reset (using ID from first column)
+                data: 6, // Reset (using ID from last column)
                 render: function(data, type, row) {
                     return `<a href="/reset-exam/${data}" class="btn btn-dark btn-sm">Reset</a>`;
                 }

@@ -38,6 +38,14 @@
             </div>
             
         </div>
+
+        <div class="row">
+            <div class="col-sm">                
+                <?php echo htmlspecialchars($mapped_listening_score); ?>
+                <?php echo htmlspecialchars($mapped_writing_score); ?>
+                <?php echo htmlspecialchars($mapped_reading_score); ?>
+            </div>
+        </div>
     </div>
     <footer>
         <div class="container copyr mb-3">Copyright 2024 © Universitas Merdeka Malang</div>

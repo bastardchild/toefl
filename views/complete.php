@@ -34,19 +34,19 @@
                 <div class="row mt-4">
                     <div class="col-sm">
                         <div class="small-score lc">
-                            <h4><?php echo htmlspecialchars($mapped_listening_score); ?></h4>
+                            <h4><?php echo htmlspecialchars($listening_score); ?><span class="ttl-q">/50</span></h4>
                             Listening Comprehension
                         </div>                        
                     </div>
                     <div class="col-sm">
                         <div class="small-score we">
-                        <h4><?php echo htmlspecialchars($mapped_writing_score); ?></h4>
+                        <h4><?php echo htmlspecialchars($writing_score); ?><span class="ttl-q">/40</span></h4>
                         Written and Structure Expression
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="small-score rc">
-                        <h4><?php echo htmlspecialchars($mapped_reading_score); ?></h4>
+                        <h4><?php echo htmlspecialchars($reading_score); ?><span class="ttl-q">/50</span></h4>
                         Reading Comprehension
                         </div>
                     </div>

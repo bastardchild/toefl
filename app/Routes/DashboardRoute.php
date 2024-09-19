@@ -2,6 +2,7 @@
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use App\Models\Exam;
+use App\Models\ExamResult;
 use App\Models\User;
 
 
@@ -141,4 +142,102 @@ $app->get('/api/exam-codes', function (Request $request, Response $response) {
     // Return the response as JSON
     $response->getBody()->write(json_encode($examCodesArray));
     return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/api/exam-r', function (Request $request, Response $response) {
+    $draw = $request->getQueryParams()['draw'] ?? 1;
+    $start = $request->getQueryParams()['start'] ?? 0;
+    $length = $request->getQueryParams()['length'] ?? 10;
+    $search = $request->getQueryParams()['search']['value'] ?? '';
+    $orderColumn = $request->getQueryParams()['order'][0]['column'] ?? 1;
+    $orderDir = $request->getQueryParams()['order'][0]['dir'] ?? 'desc'; // Default to descending
+    $examCode = $request->getQueryParams()['exam_code'] ?? '';
+
+    $columns = [
+        1 => 'users.name',
+        2 => 'users.exam_code',
+        3 => 'exam_results.toefl_score',
+        4 => 'exam_results.listening_score',
+        5 => 'exam_results.writing_score',
+        6 => 'exam_results.reading_score',        
+    ];
+
+    $query = ExamResult::leftJoin('users', 'exam_results.user_id', '=', 'users.id')
+        ->select(
+            'users.name',
+            'users.exam_code',            
+            'exam_results.toefl_score',
+            'exam_results.listening_score',
+            'exam_results.writing_score',
+            'exam_results.reading_score'            
+        );
+
+    // Apply search
+    if (!empty($search)) {
+        $query->where(function ($q) use ($search) {
+            $q->where('users.name', 'LIKE', "%{$search}%")
+              ->orWhere('exam_results.exam_id', 'LIKE', "%{$search}%")
+              ->orWhere('exam_results.toefl_score', 'LIKE', "%{$search}%");
+        });
+    }
+
+    // Apply exam_code filter
+    if (!empty($examCode)) {
+        $query->where('users.exam_code', $examCode);
+    }
+
+    $totalRecords = $query->count();
+
+    // Apply ordering
+    if (isset($columns[$orderColumn])) {
+        $query->orderBy($columns[$orderColumn], $orderDir);
+    }
+
+    // Ensure the default sort by exam_results.id descending
+    $query->orderBy('exam_results.id', 'desc');
+
+    // Apply pagination
+    $examResults = $query->skip($start)->take($length)->get();
+
+    $data = [];
+    foreach ($examResults as $index => $result) {
+        $data[] = [
+            $start + $index + 1, // Numbered rows
+            $result->name, 
+            $result->exam_code,             
+            $result->toefl_score,          
+            $result->listening_score,
+            $result->writing_score,
+            $result->reading_score,  
+                    
+        ];
+    }
+
+    $result = [
+        "draw" => intval($draw),
+        "recordsTotal" => $totalRecords,
+        "recordsFiltered" => $totalRecords,
+        "data" => $data
+    ];
+
+    $response->getBody()->write(json_encode($result));
+    return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->get('/scores', function ($request, $response, $args) { 
+    // Check if the user is logged in and has the correct role
+    if (!isset($_SESSION['user_id']) || $_SESSION['role_id'] != 1) {
+        // Redirect to the home page if not logged in or not authorized
+        return $response
+            ->withHeader('Location', '/') // Adjust as necessary
+            ->withStatus(302);
+    }    
+    // Otherwise, render the dashboard view
+    
+    ob_start();
+    require __DIR__ . '/../../views/admin-score.php';
+    $output = ob_get_clean();
+    
+    $response->getBody()->write($output);
+    return $response;
 });

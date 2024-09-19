@@ -14,7 +14,7 @@
         </div>        
     </div>
   <div class="container mt-3 main-content mb-5">   
-    <audio id="listeningAudio" src="/assets/audio/audio-exam.mp3"></audio>
+    <audio id="listeningAudio" src="https://dummy.unmer.ac.id/audio-exam.mp3"></audio>
    
     <button id="startButton" class="btn btn-primary mb-3"><i class="bi bi-music-note-beamed"></i> Play Audio</button>
 

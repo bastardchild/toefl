@@ -71,6 +71,10 @@ $app->get('/', function ($request, $response, $args) {
 
 // Handle login form submission
 $app->post('/', function ($request, $response, $args) {
+    
+    $delay = rand(350000, 750000); // Random microseconds between 350,000 and 750,000
+    usleep($delay);
+
     $data = $request->getParsedBody();
     $username = $data['username'];
     $password = $data['password'];

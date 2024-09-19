@@ -127,7 +127,8 @@ u{
 .copyr{
     font-size: 14px;
 }
-#userTable{
+#userTable,
+#examResultsTable{
     font-size: 14px;
 }
 .small-score{

@@ -10,3 +10,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap" rel="stylesheet">
 
 <link href="/assets/css/custom.css" rel="stylesheet">
+
+<?php
+// Check if the user has role_id = 2 (user)
+if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 2) {
+?>
+    <script>
+        // Alert on right-click (contextmenu)
+        document.addEventListener('contextmenu', function(event) {
+            alert("Right-clicking is not allowed during the exam!");
+            event.preventDefault(); // This will prevent the default right-click context menu
+        });
+
+        // Alert when the user moves away from the tab or changes the tab
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                alert("You moved away from the exam tab! Please stay focused.");
+            }
+        });
+    </script>
+<?php
+}
+?>

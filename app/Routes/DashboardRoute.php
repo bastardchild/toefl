@@ -165,6 +165,8 @@ $app->get('/api/exam-r', function (Request $request, Response $response) {
     $query = ExamResult::leftJoin('users', 'exam_results.user_id', '=', 'users.id')
         ->select(
             'users.name',
+            'users.middle_name',
+            'users.last_name',
             'users.exam_code',            
             'exam_results.toefl_score',
             'exam_results.listening_score',
@@ -203,13 +205,12 @@ $app->get('/api/exam-r', function (Request $request, Response $response) {
     foreach ($examResults as $index => $result) {
         $data[] = [
             $start + $index + 1, // Numbered rows
-            $result->name, 
+            strtoupper($result->name . ' ' . $result->middle_name . ' ' . $result->last_name),
             $result->exam_code,             
             $result->toefl_score,          
             $result->listening_score,
             $result->writing_score,
             $result->reading_score,  
-                    
         ];
     }
 

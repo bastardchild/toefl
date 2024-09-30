@@ -11,6 +11,28 @@
 
 <link href="/assets/css/custom.css" rel="stylesheet">
 
+<script>
+    function keepSessionAlive() {
+        fetch('/keep-alive', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'inactive') {
+                window.location.href = '/';
+            }
+        })
+        .catch(error => {
+            console.error('Error keeping session alive:', error);
+        });
+    }
+    setInterval(keepSessionAlive, 300000);
+</script>
+
 <?php
 // Check if the user has role_id = 2 (user)
 if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 2) {
@@ -22,12 +44,12 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 2) {
             event.preventDefault(); // This will prevent the default right-click context menu
         });
 
-        // Alert when the user moves away from the tab or changes the tab
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') {
-                alert("You moved away from the exam tab! Please stay focused.");
-            }
-        });
+        // // Alert when the user moves away from the tab or changes the tab
+        // document.addEventListener('visibilitychange', function() {
+        //     if (document.visibilityState === 'hidden') {
+        //         alert("You moved away from the exam tab! Please stay focused.");
+        //     }
+        // });
     </script>
 <?php
 }

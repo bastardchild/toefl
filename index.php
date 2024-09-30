@@ -3,15 +3,22 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+date_default_timezone_set('Asia/Bangkok');
+
 require 'vendor/autoload.php';
 require 'config/database.php';
 
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 use App\Models\User;
 use App\Models\Exam;
 use App\Models\ExamResult;
 
+// Set session lifetime in your SlimPHP application
+ini_set('session.gc_maxlifetime', 86400); // 24 hours (86400 seconds)
+session_set_cookie_params(86400); // Set the cookie lifetime to 24 hours
 session_start();
 
 $app = AppFactory::create(); // Create Slim app
@@ -175,6 +182,19 @@ $app->post('/upload-image', function ($request, $response, $args) {
 
     $response->getBody()->write('Image uploaded successfully');
     return $response->withStatus(200);
+});
+
+// Keep-alive route to refresh the session
+$app->get('/keep-alive', function (Request $request, Response $response, $args) {
+    if (isset($_SESSION['user_id'])) {
+        // Respond with success if session is active
+        $response->getBody()->write(json_encode(['status' => 'active']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    } else {
+        // Respond with failure if session is not active
+        $response->getBody()->write(json_encode(['status' => 'inactive']));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(403);
+    }
 });
 
 $app->run();

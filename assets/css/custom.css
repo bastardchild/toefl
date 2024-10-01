@@ -43,20 +43,20 @@ video, .cam-exam {
 .cam-exam{
     position: fixed;
     right: 0;
-    top: 32px;
+    top: 0;
     width: 200px;
     height: 200px;
 }
 .exam-timer{
-    background: var(--orange);
-    color: var(--navy);
-    padding: 10px;
+    color: var(--orange);
+    background: var(--navy);
+    padding: 12px 0;
     font-size: 25px;
     font-weight: bold;
     position: fixed;
     top: 0;
     right: 0;
-    width: 200px;
+    width: 100%;
     text-align: center;
 }
 .ready-test {

@@ -21,11 +21,16 @@ $(document).ready(function() {
     function updateTimer() {
         countdownDuration--;
         $('#timer').text(formatTime(countdownDuration));
-
         // Save timer data to local storage
         localStorage.setItem('countdownDurationWriting', countdownDuration);
-
-        if (countdownDuration < 0) {
+        // Change background to red and text color to white if time is less than 10 minutes
+        if (countdownDuration <= 10 * 60) {
+            $('.exam-timer').css({
+                'background-color': 'red',
+                'color': 'white'
+            });
+        }
+        if (countdownDuration <= 0) {
             $('#exam-form').submit(); // Automatically submit the form when the timer ends
         }
     }

@@ -7,8 +7,8 @@
     <title>Written and Structure Expression</title> 
     <?php require 'bootstrap.php'; ?>    
 </head>
-<body class="exam-area">
-    <div class="container">
+<body class="exam-area pt-3">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-sm"><div class="branding"><img src="/assets/img/logopb.jpeg" alt=""></div></div>            
         </div>        

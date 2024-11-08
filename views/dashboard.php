@@ -106,7 +106,7 @@
                     <h4><span class="number-b">2</span> Tes Speaker <i class="bi bi-volume-up-fill"></i></h4>
                     <p>Untuk memastikan Anda dapat mendengar bagian audio dari ujian, kami akan menjalankan tes speaker. <br>Pastikan speaker atau headphone Anda terhubung dan berfungsi dengan baik.</p>
                     <audio id="audioTest" controls>
-                        <source src="/assets/audio/audio-test.mp3" type="audio/mp3">
+                        <source src="https://is3.cloudhost.id/afjnstorage/audio-test.mp3" type="audio/mp3">
                         Your browser does not support the audio element.
                     </audio>                                          
                     <div class="form-check">
